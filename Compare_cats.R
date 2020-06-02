@@ -221,3 +221,20 @@ ggplot(aes(x = indices, color = variant)) +
   scale_color_manual(name = "", labels = c("Внутри федеральных", "Между федеральными и региональными"), values = c(ff = "blue", rf = "red")) +
   labs(x = "Значение индекса сходства", y = "Плотность") +
   theme(legend.position = "bottom")
+
+
+# Compare our results with [Stishov, Dudley, 2018]
+# Read table with names of regional categories according to Stishov and find categories with the same name in our table.
+# Then count the numbers of federal analogs
+stishov <- read_ods("Compare_Stishov_with_our_results.ods")   
+lapply(stishov$category_name, function(x) {
+  filtered <- comparison_results[comparison_results$category_name == x,]
+  filtered %>% 
+    summarise_at(vars(zap_is_max:dpbg_is_max), sum) %>% 
+    mutate(cat_name = x) %>% 
+    select(cat_name, zap_is_max:dpbg_is_max)
+})
+
+# If we didn't found category automatically (e. g. because of difference in the way the names were written), we can try to grep them manually using this expression
+comparison_results[grep("", comparison_results$category_name, fixed = TRUE),]
+
