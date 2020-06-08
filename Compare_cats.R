@@ -62,7 +62,7 @@ comparison_results[, c("max", "zap_is_max", "np_is_max", "pp_is_max", "zak_is_ma
   max <- max(x)
   fcat_names <- c("zap", "np", "pp", "zak", "mon", "dpbg")
   # In index is lower than 0.7, there is no similar federal category, and the regional category is treated as “original”
-  if (max >= .65) {
+  if (max >= .7) {
     fcat_is_max <- c(as.integer(x == max), 0)
     fcat_max_names <- paste0(fcat_names[x == max], collapse = "+")
   }
