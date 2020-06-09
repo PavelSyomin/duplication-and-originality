@@ -32,10 +32,10 @@ rcats_nodata <- nrow_total - nrow_filled
 # Function to calculate the index of similarity
 # Used in apply
 # Index is between 0 and 1, where 1 is a maximum similarity
-calculate_similarity <- function(x, table) {
+calculate_similarity <- function(x, fcats_tasks_table) {
   rcat_number <- as.integer(x[1])
   rcat_objectives <- as.integer(x[-1])
-  raw_result <- apply(table, 1, function(y) {
+  raw_result <- apply(fcats_tasks_table, 1, function(y) {
     catid <- as.integer(y[1])
     cat_name <- y[2]
     fcat_objectives <- as.integer(y[-c(1:2)])
@@ -52,7 +52,7 @@ calculate_similarity <- function(x, table) {
 }
 
 # Process data
-x <- as.data.frame(t(apply(data[-c(2:4)], 1, calculate_similarity, table)))
+x <- as.data.frame(t(apply(data[-c(2:4)], 1, calculate_similarity, fcats_tasks_table)))
 colnames(x) <- c("number", "zap", "np", "pp", "zak", "mon", "dpbg")
 # Add categories' names, regions and federal districts by joining with initial datarfame using numbers of regional caterories
 comparison_results <- merge(data[, 1:4], x, by = "number")
@@ -163,7 +163,7 @@ indices_distr_plot <- comparison_results %>%
 # Group 2: regional categories
 # Can we say that within-group similarity of categories (especially federal ones) is smaller than between-groups similatiry?
 # If true, this is a strong point to the conclusion that regional categories are in fact more similar to federal categories that they should be
-fcats_fcats_comparison <- as.data.frame(t(apply(table[-2], 1, calculate_similarity, table)))
+fcats_fcats_comparison <- as.data.frame(t(apply(fcats_tasks_table[-2], 1, calculate_similarity, fcats_tasks_table)))
 colnames(fcats_fcats_comparison) <- c("number", "zap", "np", "pp", "zak", "mon", "dpbg")
 fcats_fcats_indices <- do.call(c, fcats_fcats_comparison[-1])
 fcats_fcats_indices <-  fcats_fcats_indices[fcats_fcats_indices != 1]

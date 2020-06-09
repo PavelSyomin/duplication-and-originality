@@ -35,5 +35,5 @@ mon <- expand.grid(5, "mon", 4, 3, 1:3, 4, 1, 3, 3, 4, 4)
 colnames(mon) <- column_names
 
 # Combine everything to 1 table
-table <- rbind(four_cats, zak, mon)
-table <- table[order(table$catid), ]
+fcats_tasks_table <- rbind(four_cats, zak, mon)
+fcats_tasks_table <- fcats_tasks_table[order(fcats_tasks_table$catid), ]
