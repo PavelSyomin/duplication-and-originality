@@ -1,0 +1,8 @@
+library(readODS)
+library(dplyr)
+library(stringr)
+library(irr)
+library(rmarkdown)
+library(knitr)
+library(ggplot2)
+library(tidyr)

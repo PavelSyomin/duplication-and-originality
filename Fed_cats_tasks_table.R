@@ -22,7 +22,7 @@ four_cats <- data.frame(catid = c(1:3, 6),
                 use = c(4, 3, 4, 4),
                 cult = c(4, 3, 4, 4))
 
-# Save colnames to a vector to avoid repetition
+# Save colnames to a vector to avoid code repetition
 column_names <- c("catid", "cat_name", "sci", "wild", "div",
                   "serv", "feat", "tour", "edu", "use", "cult")
 
@@ -34,6 +34,7 @@ colnames(zak) <- column_names
 mon <- expand.grid(5, "mon", 4, 3, 1:3, 4, 1, 3, 3, 4, 4)
 colnames(mon) <- column_names
 
-# Combine everything to 1 table
+# Combine everything to one table
 fcats_tasks_table <- rbind(four_cats, zak, mon)
+# Set an order of categories
 fcats_tasks_table <- fcats_tasks_table[order(fcats_tasks_table$catid), ]
