@@ -215,13 +215,15 @@ ff_rf_indices_plot <- rbind(
   data.frame(variant = "ff", indices = fcats_fcats_indices),
   data.frame(variant = "rf", indices = rcats_fcats_indices)
 ) %>% 
-ggplot(aes(x = indices, color = variant)) +
-  geom_density() +
-  geom_density() +
-  scale_color_manual(name = "", labels = c("Внутри федеральных", "Между федеральными и региональными"), values = c(ff = "blue", rf = "red")) +
-  labs(x = "Значение индекса сходства", y = "Плотность") +
-  theme(legend.position = "bottom")
-
+ggplot(aes(x = indices, fill = variant)) +
+  geom_bar(aes(y = stat(prop)), color = "black", position = position_dodge2(preserve = "single", padding = .3)) +
+  scale_fill_manual(name = "", labels = c("Внутри федеральных категорий", "Между федеральными и региональными категориями"), values = c(ff = "white", rf = "black")) +
+  scale_x_continuous(labels = function(x) format(x, decimal.mark = ","), limits = c(0, 1)) +
+  scale_y_continuous(labels = function(x) format(x, decimal.mark = ","), expand = expand_scale(mult = c(0, .1))) +
+  labs(x = "Индекс сходства", y = "Доля индексов") +
+  theme_bw(base_family = "PT Sans") +
+  theme(legend.direction = "vertical", legend.position = "bottom", panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(), axis.title = element_text(size = 16), axis.text = element_text(size = 14), legend.text = element_text(size = 14), panel.border = element_blank())
+ff_rf_indices_plot
 
 # Compare our results with [Stishov, Dudley, 2018]
 # Read table with names of regional categories according to Stishov and find categories with the same name in our table.
