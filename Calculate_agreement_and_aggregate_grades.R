@@ -9,9 +9,9 @@ library(dplyr)
 library(ggplot2)
 
 # Read tables with grades by each assessor
-t1 <- read_ods("Comparison_table_raw_p.ods", sheet = 2) # Pavel S.
-t2 <- read_ods("Comparison_table_raw_j.ods", sheet = 2) # Julia K.
-t3 <- read_ods("Comparison_table_raw_l.ods", sheet = 2) # Valeriya S.
+t1 <- read_ods("Comparison_table_raw_a1.ods", sheet = 2) # Author 1
+t2 <- read_ods("Comparison_table_raw_a2.ods", sheet = 2) # Author 2
+t3 <- read_ods("Comparison_table_raw_a3.ods", sheet = 2) # Author 3
 
 # Rebuild row numbers
 t1$number <- 1:nrow(t1)
@@ -49,9 +49,9 @@ kappa <- kappam.fleiss(grades)
 kappa
 
 # Pairwise Cohen's kappa
-kappa2(grades[1:2]) # Pavel S. and Julia K.
-kappa2(grades[2:3]) # Julia K. and Valeriya S.
-kappa2(grades[c(1,3)]) # Pavel S. and Valeriya S.
+kappa2(grades[1:2]) # Authors 1 and 2
+kappa2(grades[2:3]) # Authors 2 and 3
+kappa2(grades[c(1,3)]) # Authors 1 and 3
 
 # A bit more detailed comparison: check the distribution of differences between min and max grades
 # E. g. if the three grades by assessors are (1, 2, 4), the distance is (4-1) = 3
@@ -71,22 +71,22 @@ data.frame(dist = grades_distance) %>%
 
 # A distribution of grades made by each assessor
 # Just for fun, because I can't imagine what to do with these plots
-qplot(x = s1, geom = "bar", xlab = "Grades by Pavel")
-qplot(x = s2, geom = "bar", xlab = "Grades by Julia")
-qplot(x = s3, geom = "bar", xlab = "Grades by Valeriya")
+qplot(x = s1, geom = "bar", xlab = "Grades by Author 1")
+qplot(x = s2, geom = "bar", xlab = "Grades by Author 2")
+qplot(x = s3, geom = "bar", xlab = "Grades by Author 3")
 
 # Which number of categories was assessed by one, two or three assessors?
 apply(grades, 1, function(x) {
-  names(x) <- c("p", "j", "l")
+  names(x) <- c("a1", "a2", "a3")
   x <- x[x != 0]
   paste0(names(x), collapse = "")
 }) %>% table(.)
 
 # Build a table with aggregated grades
 # Add column to mark assessor (this is possibly an extra useless step, but let it be)
-t1$acessor <-  "p"
-t2$acessor <- "j"
-t3$acessor <- "l"
+t1$acessor <-  "a1"
+t2$acessor <- "a2"
+t3$acessor <- "a3"
 
 # Join three tables with grades into a one big table
 t <- rbind(t1, t2, t3)
