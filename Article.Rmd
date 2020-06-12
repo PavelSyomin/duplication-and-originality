@@ -39,7 +39,13 @@ E-mail: jullia3913@mail.ru
 
 E-mail: sinitsina-lera@mail.ru
 
-(Сюда аннотацию)
+В эмпирических исследованиях экологического права и политики важное место занимает вопрос о механизмах, определяющих связь территориально-государственного устройства с экологическими показателями. К числу таких менанизмов в федерациях, в том числе в России, относится дублирование. В данной работе исследуется узкий аспект проблемы: дублирование при установлении региональных категорий особо охраняемых природных территорий.
+
+Цель исследования — определить, как сочетаются оригинальность и дублирование среди региональных категорий, и дать юридическую интерпретацию наблюдаемых явлений. Задачи: 1) собрать массив нормативной информации обо всех региональных категориях; 2) сравнить каждую федеральную категорию с каждой региональной категорией и установить, является региональная категория оригинальной или дублирующей; 3) обобщить результаты сравнения и дать их юридическую интерпретацию.
+
+Основной метод работы — сравнение по специальной количественной методике. Дополнительные методы — анализ, синтез, индекция, дедукция, абстрагирование. Также используются отдельные методы статистического анализа данных.
+
+По результатам исследования установлено, что дублирование при установлении региональных категорий в России многократно преобладает над оригинальностью, а медианное сходство федеральных категорий с региональными выше, чем нормальный уровень сходства. Вероятно, часть результатов о дублировании объясняется тем, что региональные законодатели недостаточно подробно регламентируют специфику региональных категорий. Дублирование имеет отрицательные и положительные последствия: оно может приводить к снижению уровня правовой охраны ценных территорий, но одновременно является механизмом, компенсирующим недостатки федерального регулирования и способным стать «страховкой» на случай негативных изменений федерального законодательства. Соответственно, дублирование может быть как необоснованным, так и обоснованным. Можно рекомендовать региональным законодателям избегать необоснованного дублирования, а также детально регламентировать специфику региональных категорий.
 
 Ключевые слова: особо охраняемые природные территории, категории, типы управления, сравнение категорий, федерализм, региональное законодательство, дублирование, статистический анализ, эмпирическое правоведение.
 
@@ -57,7 +63,13 @@ E-mail: jullia3913@mail.ru
 
 E-mail: sinitsina-lera@mail.ru
 
-(Abstract must be here...)
+One of the important issues in empirical studies of environmental law and policy is discovering and explaining underlying mechanisms of  relation between federalism or centralization and environmental performance. Among such mechanisms in federations, e. g. in Russia, there is an overlap and duplication. This article addresses a narrow part of the problem, i. e. the duplication among regional categories of especially protected natural territories.
+
+The goal of the research is to describe the combination of originality and duplication among regional categories, and to provide for a legal interpratation of the observed patterns. The objectives are: 1) to collect a database of normative legal information about regional categories; 2) to compare each federal category with each regional category and to find out whether the given regional category is original or duplicated; 3) to aggregate the results of the comparison and make their legal interpratetion.
+
+The main method of the study is a comparison made with a special quantitative methodics. Among the other methods are analysis, synthesis, induction, deduction, abstraction. Also, a few methods of statistical data analysis were used.
+
+As a result of the research, it is argued that duplication among regional categories in Russia is far more typical than originality, and the median level of similarity between federal and regional categories is higher that the mormal level of similarity. Some part of the duplication may be explained by the fact that regional legislators provide for very short and undetailed normative reglamentation of regional categories. Duplication has negative and positive outcomes, i. e. it can result in a lax legal protection of valuable territories, but it also can act as a compensatory mechanism overcoming the drawbacks of the federal regulation and as a safeguard against negative changes of federal legislation. Thus, it may be said that duplication may be unjustified or justified. The regional legislators should avoid unjustified duplication and provide for a detailed legal reglamentation of regional categories.
 
 Keywords: especially protected natural territories, categories, comparison of categories, governance types, federalism, regional legislation, duplication, statistical analysis, empirical legal studies.
 
