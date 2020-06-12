@@ -41,7 +41,7 @@ s3 <- do.call(c, t3[-c(1:4)])
 
 # Put vectors to a data frame
 grades <- data.frame(p = s1, j = s2, l = s3)
-# Replace NAs with zeros, because kappam.fleiss skip NAs, but we need to account for NAs when computing a measure of agreement
+# Replace NAs with zeros, because kappam.fleiss skips NAs, but we need to account for NAs when computing a measure of agreement
 grades[is.na.data.frame(grades)] <- 0
 # Calculate Fleiss' Kappa
 kappa <- kappam.fleiss(grades)
