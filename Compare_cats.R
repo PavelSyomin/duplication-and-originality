@@ -146,96 +146,51 @@ final_table <- comparison_results %>%
                                             "Сумма")))
   
 
-indices_desc_stats <- comparison_results %>% 
-  select(zap:dpbg) %>% 
-  apply(., 2, function(x) {
-    min_index = min(x)
-    first_quartile = quantile(x, .25, names = FALSE)
-    median_index = median(x)
-    mean_index = mean(x)
-    third_quartile = quantile(x, .75, names = FALSE)
-    max_index = max(x)
-    index_iqr = IQR(x)
-    index_normality = shapiro.test(x)$p.value
-    c(min = min_index, first_q = first_quartile, median = median_index, mean = mean_index, third_q = third_quartile, max = max_index, iqr = index_iqr, norm_p = index_normality)
-  }) %>% 
-  as.data.frame()
-
-rownames(indices_desc_stats) <- c(
-  "Минимум",
-  "Первый квартиль",
-  "Медиана",
-  "Среднее",
-  "Третий квартиль",
-  "Максимум",
-  "Межквартильный размах",
-  "Sharipo-Wilk p-value"
-)
-
-indices_desc_stats %>% slice(1:4)
-
-indices_distr_plot <- comparison_results %>% 
-  gather(fcat, index, zap:dpbg) %>% 
-  ggplot(aes(x = index)) +
-  geom_histogram(bins = 18) +
-  geom_density(color = "blue") +
-  geom_vline(xintercept = .72, color = "red") +
-  facet_wrap(~fcat)
-
 
 # Compare within-group and between-group variability in indices
 # Group 1: federal categories
 # Group 2: regional categories
 # Can we say that within-group similarity of categories (especially federal ones) is smaller than between-groups similatiry?
 # If true, this is a strong point to the conclusion that regional categories are in fact more similar to federal categories that they should be
+
+# Comrate federal categories with federal categories in the same way we have compared regional categories with federal categories
 fcats_fcats_comparison <- as.data.frame(t(apply(fcats_tasks_table[-2], 1, calculate_similarity, fcats_tasks_table)))
+# Change colnames to something more human-readible
 colnames(fcats_fcats_comparison) <- c("number", "zap", "np", "pp", "zak", "mon", "dpbg")
+# Combine all indices to a vector
 fcats_fcats_indices <- do.call(c, fcats_fcats_comparison[-1])
+# Remove indices that are equal to 1, because these indices are a result of comparison of a category with itself
 fcats_fcats_indices <-  fcats_fcats_indices[fcats_fcats_indices != 1]
+# A simple plot
 qplot(fcats_fcats_indices, geom = "bar", xlim = c(0, 1))
-min(fcats_fcats_indices)
-quantile(fcats_fcats_indices, c(.25, .5, .75))
-max(fcats_fcats_indices)
-mean(fcats_fcats_indices)
+# Check for the normality of distribution
 shapiro.test(fcats_fcats_indices)
+# Get descriptive statistics
 psych::describe(fcats_fcats_indices)
+# Find out the most similar category in each row (i. e. the most similar federal category for each variant of the federal categories)
 fcats_fcats_comparison["max"] <- apply(fcats_fcats_comparison, 1, function(x) {
   x <- x[-1]
   x <- x[x != 1]
   max(x)
 })
+# Get descriptive statistics
 psych::describe(fcats_fcats_comparison["max"])
 
+# Do the same for the similarity indices between federal an regional categories
+# We already have a data frame with indeces, so just put them to a vector
+# We don't need to exclude indices that equals 1, because here they're not the result of comparison of the category with itself
 rcats_fcats_indices <- do.call(c, select(comparison_results, zap:dpbg))
-# rcats_fcats_indices <- rcats_fcats_indices[rcats_fcats_indices != 1]
-qplot(rcats_fcats_indices, geom = "bar", xlim = c(0,1))
-min(rcats_fcats_indices)
-quantile(rcats_fcats_indices, c(.25, .5, .75))
-max(rcats_fcats_indices)
-mean(rcats_fcats_indices)
+# Normality test
 shapiro.test(rcats_fcats_indices)
+# Descriptive stats (for all indices and for maximum indices)
 psych::describe(rcats_fcats_indices)
-psych::describe(comparison_results[comparison_results$max != 1, "max"])
+psych::describe(comparison_results["max"])
 
+# Mann-Whitney test for the two groups of indices
 ff_rf_indices_diff <- wilcox.test(fcats_fcats_indices, rcats_fcats_indices, conf.int = TRUE)
 
-rcats_rcats_comparison <- as.data.frame(t(apply(data[-c(2:4)], 1, calculate_similarity, data[-c(3,4)])))
-rcats_rcats_indices <- do.call(c, rcats_rcats_comparison[-1])
-rcats_rcats_indices <- rcats_rcats_indices[rcats_rcats_indices != 1]
-min(rcats_rcats_indices)
-quantile(rcats_rcats_indices, c(.25, .5, .75))
-max(rcats_rcats_indices)
-mean(rcats_rcats_indices)
-# shapiro.test(rcats_rcats_indices) # won't work cause to a sample size limit set to 5000
-qplot(rcats_rcats_indices, geom="bar", xlim = c(0,1))
-rcats_rcats_comparison["max"] <- apply(rcats_rcats_comparison, 1, function(x) {
-  x <- x[-1]
-  x <- x[x != 1]
-  max(x)
-})
-psych::describe(rcats_rcats_comparison["max"])
-
-
+# A plot of distributions of indices
+# We use geom_bar, because it's simplier to show proportions on it (geom_density also would be cool, but it will be far more difficult for a reader to understand what does “density” mean)
 ff_rf_indices_plot <- rbind(
   data.frame(variant = "ff", indices = fcats_fcats_indices),
   data.frame(variant = "rf", indices = rcats_fcats_indices)
@@ -248,20 +203,5 @@ ggplot(aes(x = indices, fill = variant)) +
   labs(x = "Индекс сходства", y = "Доля индексов") +
   theme_bw(base_family = "PT Sans") +
   theme(legend.direction = "vertical", legend.position = "bottom", panel.grid.minor = element_blank(), panel.grid.major.x = element_blank(), axis.title = element_text(size = 16), axis.text = element_text(size = 14), legend.text = element_text(size = 14), panel.border = element_blank())
+# Display the plot
 ff_rf_indices_plot
-
-# Compare our results with [Stishov, Dudley, 2018]
-# Read table with names of regional categories according to Stishov and find categories with the same name in our table.
-# Then count the numbers of federal analogs
-stishov <- read_ods("Compare_Stishov_with_our_results.ods")   
-lapply(stishov$category_name, function(x) {
-  filtered <- comparison_results[comparison_results$category_name == x,]
-  filtered %>% 
-    summarise_at(vars(zap_is_max:dpbg_is_max), sum) %>% 
-    mutate(cat_name = x) %>% 
-    select(cat_name, zap_is_max:dpbg_is_max)
-})
-
-# If we didn't found category automatically (e. g. because of difference in the way the names were written), we can try to grep them manually using this expression
-comparison_results[grep("", comparison_results$category_name, fixed = TRUE),]
-
