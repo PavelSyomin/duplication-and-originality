@@ -6,7 +6,7 @@ library(tidyr)
 library(ggplot2)
 
 # Load three grades tables made by authors, calculate a level of agreement between assessors, and prepare a summary table of grades
-source("Calculate_agreement.R")
+source("Calculate_agreement_and_aggregate_grades.R")
 
 # Load table of tasks of federal categories
 source("Fed_cats_tasks_table.R")
@@ -14,7 +14,7 @@ source("Fed_cats_tasks_table.R")
 # Load table of federal categories with their levels
 source("Prepare_list_of_federal_cats_with_levels.R")
 
-# Read data from ods
+# Read data from a table of aggregated scores (the table is created in Calculate_agreement_and_aggredate_grades.R)
 d <- read.csv("Comparison_table_raw.csv", stringsAsFactors = FALSE)
 # Rebuild the numbers of regional categories
 d$number <- 1:nrow(d)
@@ -32,22 +32,38 @@ rcats_nodata <- nrow_total - nrow_filled
 # Function to calculate the index of similarity
 # Used in apply
 # Index is between 0 and 1, where 1 is a maximum similarity
+# Gets a data frame of grades and a reference table of grades
+# Returns a vector
 calculate_similarity <- function(x, fcats_tasks_table) {
+  # Store id of a regional category
   rcat_number <- as.integer(x[1])
+  # Store grades of objectives
   rcat_objectives <- as.integer(x[-1])
+  # Compare vector of objectives with each row in a reference table
   raw_result <- apply(fcats_tasks_table, 1, function(y) {
+    # Store id and name of a reference category
     catid <- as.integer(y[1])
     cat_name <- y[2]
+    # Store grades of objectives of a federal category
     fcat_objectives <- as.integer(y[-c(1:2)])
+    # Calculate difference between grades
     diff <- abs(rcat_objectives - fcat_objectives)
+    # Count a number of objectives with matched grades
     full_matches <- diff[diff == 0]
+    # Count a number of objectives with a difference of 1
     partial_matches <- diff[diff == 1]
+    # Calculate total grade of similarity: 2 balls for a full match and 1 ball for a partial match
     grade <- length(full_matches) * 2 + length(partial_matches)
+    # Convert balls to a similarity index
     grade <- round(grade / 18, digits = 2) # 18 is max grade (2 balls * 9 objectives)
+    # Return a vector with catid and grade
     c(catid = catid, grade = grade)
   })
+  # Rotate a matrix and turn it into a data frame
   raw_result <- as.data.frame(t(raw_result))
+  # We have variants of zakazniks and natural monuments. Variants will result in a different similarity index, but we shouldn't process all variants as different categories. So we find the maximum similarity among variants. For the other four categories we have only one variant, so the code just returns its value
   result <- aggregate(grade ~ catid, raw_result,  FUN = max)
+  # Make a vector and return it
   c(rcat_number, result$grade)
 }
 
@@ -58,30 +74,38 @@ colnames(x) <- c("number", "zap", "np", "pp", "zak", "mon", "dpbg")
 comparison_results <- merge(data[, 1:4], x, by = "number")
 # Find out which federal category has the maximum similarity with each regional category
 comparison_results[, c("max", "zap_is_max", "np_is_max", "pp_is_max", "zak_is_max", "mon_is_max", "dpbg_is_max", "none_is_max", "max_fcat_names")] <- t(apply(comparison_results, 1, function(x) {
+  # Store similarity indices only
   x <- x[-c(1:4)]
+  # Find max similarity index
   max <- max(x)
+  # Store codes for the names of federal categories
   fcat_names <- c("zap", "np", "pp", "zak", "mon", "dpbg")
-  # In index is lower than 0.7, there is no similar federal category, and the regional category is treated as “original”
-  if (max >= .7) {
+  # Set a threshold
+  threshold = .7
+  # In index is higher than the threshold, set 1 for the respective federal category (or categories) and store its name (or names)
+  if (max >= threshold) {
+    # Is the given federal category has the maximum similarity index?
     fcat_is_max <- c(as.integer(x == max), 0)
+    # Get a string with codes of respective federal categories separated by “+” and store it
     fcat_max_names <- paste0(fcat_names[x == max], collapse = "+")
   }
+  # Else the category is “original”
   else {
     fcat_is_max <- c(rep(0, 6), 1)
     fcat_max_names <- "none"
   }
+  # Return resulting vector
+  # E. g. ([Max similarity index] 0.67, [Is it with zap? Yes] 1, [Is it with np? No] 0, [With pp? No] 0, [With zak? No] 0, [With mon? No] 0, [With dpbg? No] 0, [Is it original category? No] 0, [Federal category with maximum similarity] "zap"). Of course, return is without text — only codes and digits
   c(max, fcat_is_max, fcat_max_names)
 }))
 
-# Fix column types
+# Fix column types, because we had to coerce everything to a character vector on the previous step to return 0 (numeric) in a one vector with "zap" (character)
 comparison_results$max <- as.numeric(comparison_results$max)
 comparison_results[, c("zap_is_max", "np_is_max", "pp_is_max", "zak_is_max", "mon_is_max", "dpbg_is_max", "none_is_max")] <- apply(comparison_results[, c("zap_is_max", "np_is_max", "pp_is_max", "zak_is_max", "mon_is_max", "dpbg_is_max", "none_is_max")], 2, as.integer)
-# comparison_results$max_fcat_name <- factor(comparison_results$max_fcatid,
-                                           # levels = 0:6,
-                                           # labels = c("none", "zap", "np", "pp", "zak", "mon", "dpbg"))
 
 # Join data frame with regional categories' levels and a current data frame
 comparison_results <- merge(comparison_results, rcats_with_levels, by = c("number", "district", "region", "category_name"), all.x = TRUE)
+# Set the correct order
 comparison_results <- comparison_results[order(comparison_results$number),]
 
 # Summary table
@@ -91,6 +115,7 @@ matched_fcats <- table(comparison_results$max_fcat_name)
 matched_fcats_df <- as.data.frame(matched_fcats[order(matched_fcats, decreasing = TRUE)])
 # Add sensible colnames
 colnames(matched_fcats_df) <- c("fcat", "n_rcats")
+# Turn codes to names, because this data frame is to be displayed in an article
 matched_fcats_df$fcat <- str_replace_all(matched_fcats_df$fcat,
                                          c("zap" = "заповедники",
                                            "np" = "национальные парки",
@@ -100,9 +125,12 @@ matched_fcats_df$fcat <- str_replace_all(matched_fcats_df$fcat,
                                            "dpbg" = "дендрологические парки и ботанические сады",
                                            "none" = "отсутствует"
                                            ))
+# Replace “+” with a comma
 matched_fcats_df$fcat <- gsub("+", ", ", matched_fcats_df$fcat, fixed = TRUE)
+# Capitalise the first letter in each row
 matched_fcats_df$fcat <- Hmisc::capitalize(matched_fcats_df$fcat)
 
+# Final table shows the number of duplicated categories with respect not only to the analogous federal category, but also to the level of regional category
 final_table <- comparison_results %>% 
   group_by(category_level) %>% 
   summarise_at(vars(zap_is_max:none_is_max), sum) %>% 
@@ -117,9 +145,6 @@ final_table <- comparison_results %>%
                                             "Региональное или местное",
                                             "Сумма")))
   
-
-comparison_results %>% 
-  summarise_at(vars(zap_is_max:none_is_max), sum)
 
 indices_desc_stats <- comparison_results %>% 
   select(zap:dpbg) %>% 
