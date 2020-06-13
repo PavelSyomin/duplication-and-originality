@@ -11,8 +11,8 @@ source("Calculate_agreement_and_aggregate_grades.R")
 # Load table of tasks of federal categories
 source("Fed_cats_tasks_table.R")
 
-# Load table of federal categories with their levels
-source("Prepare_list_of_federal_cats_with_levels.R")
+# Load table of regional categories with their levels
+source("Prepare_list_of_regional_cats_with_levels.R")
 
 # Read data from a table of aggregated scores (the table is created in Calculate_agreement_and_aggredate_grades.R)
 d <- read.csv("Comparison_table_raw.csv", stringsAsFactors = FALSE)
