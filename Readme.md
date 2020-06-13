@@ -1,7 +1,5 @@
 # Data and code for an article comparing federal and regional categories of specially protected natural territories in Russia
 
-By Pavel Syomin (Habr.com), Julia Kiel and Valeriya Sinitsina (Ural State Law University).
-
 The article is an unpublished draft.
 
 The article is written using R and RMarkdown. The R source code is split into several files. Some of them are intended to be run only once, because they create templates, while the others process the data and provide for an “assembly line” which builds the article. Article.Rmd is the main file. It loads all necessary dependencies, so you can knit it and get the full article with a single click.
@@ -23,7 +21,7 @@ The article is written using R and RMarkdown. The R source code is split into se
 * **Compare_with_Stishov.R** — a helper script used to prepare a *Compare_Stishov_with_our_results.ods* table. In fact, it just searches for categories' names in a data frame with our results;
 
 * **Comparison_table_raw_{suffix}.ods** — 
-the results of an assessment made by the three co-authors. {suffix} stands for the name of the author: p — **P**avel S., j — **J**ulia K., l — Va**l**eriya S.;
+the results of an assessment made by the three co-authors.
 
 * **Create_odt_for_reference_styles.Rmd** — an RMarkdown document used to create ad ODT file by Pandoc and then customize some styles. The generated and customized file is saved as *reference-styles.odt* (see further);
 
