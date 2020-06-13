@@ -197,7 +197,7 @@ ff_rf_indices_plot <- rbind(
 ) %>% 
 ggplot(aes(x = indices, fill = variant)) +
   geom_bar(aes(y = stat(prop)), color = "black", position = position_dodge2(preserve = "single", padding = .3)) +
-  scale_fill_manual(name = "", labels = c("Внутри федеральных категорий", "Между федеральными и региональными категориями"), values = c(ff = "white", rf = "black")) +
+  scale_fill_manual(name = "", labels = c("Внутри федеральных категорий", "Между федеральными и региональными категориями"), values = c(ff = "black", rf = "white")) +
   scale_x_continuous(labels = function(x) format(x, decimal.mark = ","), limits = c(0, 1)) +
   scale_y_continuous(labels = function(x) format(x, decimal.mark = ","), expand = expand_scale(mult = c(0, .1))) +
   labs(x = "Индекс сходства", y = "Доля индексов") +
