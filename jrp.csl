@@ -11,6 +11,11 @@
       <email>andrey@chetvericov.ru</email>
       <uri>http://chetvericov.ru</uri>
     </author>
+    <contributor>
+      <name>Pavel Syomin</name>
+      <email>pas.ntg@gmail.com</email>
+      <uri>https://github.com/PavelSyomin</uri>
+    </contributor>
     <category citation-format="author-date"/>
     <category field="generic-base"/>
     <summary>Russian GOST-2008 style, edited by Pavel Syomin to fit the Journal of Russian Law (http://jrpnorma.ru) requirements.</summary>
