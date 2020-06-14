@@ -21,24 +21,6 @@ source("Compare_cats.R")
 
 **Дублирование и оригинальность среди региональных категорий особо охраняемых природных территорий в России**
 
-*`r toupper("Сёмин")` Павел Олегович,* менеджер по коммуникациям с пользователями, общество с ограниченной ответственностью «Хабр»
-
-Россия, 105082, г. Москва, Спартаковский пер., д. 2, стр. 1, эт/пом/ком 3/III/6
-
-E-mail: ntsp@ya.ru
-
-*`r toupper("Киль")` Юлия Эдуардовна,* студент, Уральский государственный юридический университет
-
-Россия, 620137, г. Екатеринбург, ул. Комсомольская, д. 21
-
-E-mail: jullia3913@mail.ru
-
-*`r toupper("Синицына")` Валерия Андреевна,* студент, Уральский государственный юридический университет
-
-Россия, 620137, г. Екатеринбург, ул. Комсомольская, д. 21
-
-E-mail: sinitsina-lera@mail.ru
-
 В эмпирических исследованиях экологического права и политики важное место занимает вопрос о механизмах, определяющих связь территориально-государственного устройства с экологическими показателями. К числу таких механизмов в федерациях, в том числе в России, относится дублирование. В данной работе исследуется узкий аспект проблемы: дублирование при установлении региональных категорий особо охраняемых природных территорий.
 
 Цель исследования — определить, как сочетаются оригинальность и дублирование среди региональных категорий, и дать юридическую интерпретацию наблюдаемых явлений. Задачи: 1) собрать массив правовой информации обо всех региональных категориях; 2) сравнить каждую федеральную категорию с каждой региональной категорией и установить, является региональная категория оригинальной или дублирующей; 3) обобщить результаты сравнения и дать их юридическую интерпретацию.
@@ -50,18 +32,6 @@ E-mail: sinitsina-lera@mail.ru
 Ключевые слова: особо охраняемые природные территории, категории, типы управления, сравнение категорий, федерализм, региональное законодательство, дублирование, статистический анализ, эмпирическое правоведение.
 
 **Duplication and Originality among Regional Categories of Specially Protected Natural Territories in Russia**
-
-*P. O. `r toupper("Syomin")`,* Habr LLC, Moscow 105082, Russian Federation
-
-E-mail: ntsp@ya.ru
-
-*J. E. `r toupper("Kiel")`,* Ural State Law University, Ekaterinburg 620137, Russian Federation
-
-E-mail: jullia3913@mail.ru
-
-*V. A. `r toupper("Sinitsina")`,* Ural State Law University, Ekaterinburg 620137, Russian Federation
-
-E-mail: sinitsina-lera@mail.ru
 
 In empirical studies of environmental law and policy, an important place is occupied by the issue of the underlying mechanisms that determine the relationship between territorial state structure and environmental performance. Among such mechanisms in the federations, including Russia, is duplication. This paper addresses a narrow aspect of the problem, i. e. the duplication in the establishment of regional categories of specially protected natural territories.
 
