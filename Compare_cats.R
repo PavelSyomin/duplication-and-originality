@@ -108,6 +108,9 @@ comparison_results <- merge(comparison_results, rcats_with_levels, by = c("numbe
 # Set the correct order
 comparison_results <- comparison_results[order(comparison_results$number),]
 
+# Save comparison results to a separate CSV file (maybe someone will want to take a look at it)
+write.csv(comparison_results, "Comparison_results.csv", row.names = FALSE)
+
 # Summary table
 matched_fcats <- table(comparison_results$max_fcat_name)
 # Order rows by number of matched regional categories descending
@@ -197,7 +200,7 @@ ff_rf_indices_plot <- rbind(
 ) %>% 
 ggplot(aes(x = indices, fill = variant)) +
   geom_bar(aes(y = stat(prop)), color = "black", position = position_dodge2(preserve = "single", padding = .3)) +
-  scale_fill_manual(name = "", labels = c("Внутри федеральных категорий", "Между федеральными и региональными категориями"), values = c(ff = "white", rf = "black")) +
+  scale_fill_manual(name = "", labels = c("Внутри федеральных категорий", "Между федеральными и региональными категориями"), values = c(ff = "black", rf = "white")) +
   scale_x_continuous(labels = function(x) format(x, decimal.mark = ","), limits = c(0, 1)) +
   scale_y_continuous(labels = function(x) format(x, decimal.mark = ","), expand = expand_scale(mult = c(0, .1))) +
   labs(x = "Индекс сходства", y = "Доля индексов") +
