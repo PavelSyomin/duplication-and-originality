@@ -108,6 +108,9 @@ comparison_results <- merge(comparison_results, rcats_with_levels, by = c("numbe
 # Set the correct order
 comparison_results <- comparison_results[order(comparison_results$number),]
 
+# Save comparison results to a separate CSV file (maybe someone will want to take a look at it)
+write.csv(comparison_results, "Comparison_results.csv", row.names = FALSE)
+
 # Summary table
 matched_fcats <- table(comparison_results$max_fcat_name)
 # Order rows by number of matched regional categories descending
