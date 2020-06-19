@@ -117,66 +117,96 @@
     </terms>
   </locale>
   <bibliography et-al-min="4" et-al-use-first="1">
-    <sort>
-      <key macro="language-sort"/>
+     <sort>
+      <key macro="language-sort" sort="descending"/>
       <key macro="author"/>
       <key variable="issued"/>
     </sort>
     <layout suffix=".">
-      <text macro="citation-number"/>
-      <text macro="author" suffix=". "/>
       <choose>
-        <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-          <group delimiter=". ">
-            <group delimiter=" ">
-              <text macro="title"/>
-              <text macro="editor"/>
-            </group>
-            <text macro="publisher"/>
-            <text variable="number-of-pages" suffix=" с."/>
-          </group>
+        <if variable="editor" match="none">
+          <text macro="author" suffix=". "/>
         </if>
-        <else-if type="chapter paper-conference" match="any">
-          <group prefix=" " delimiter=". ">
-            <group delimiter=" ">
-              <text macro="title"/>
-              <text variable="container-title" prefix="// "/>
-              <text variable="collection-title" prefix=" " suffix="."/>
-              <text macro="editor"/>
-            </group>
-            <text macro="publisher"/>
-            <text prefix="С. " variable="page"/>
-          </group>
-        </else-if>
-        <else-if type="webpage">
-          <text macro="title" prefix=" "/>
-          <text prefix=" " macro="access"/>
-        </else-if>
-        <else-if type="article-journal article-magazine article-newspaper broadcast interview manuscript map patent personal_communication song speech thesis webpage" match="any">
-          <text macro="title" prefix=" "/>
-          <group delimiter=". " prefix=" " suffix=".">
-            <group prefix="// " delimiter=". ">
-              <text variable="container-title" form="short"/>
-              <text macro="year-date"/>
-              <text variable="volume" prefix="Т. "/>
-              <text variable="issue" prefix="№ "/>
-            </group>
-            <text variable="page" prefix="С. "/>
-          </group>
-        </else-if>
-        <else>
-          <text macro="title" prefix=" "/>
-          <group delimiter=". " prefix=" " suffix=".">
-            <group prefix="// " delimiter=". ">
-              <text variable="container-title" form="short"/>
-              <text macro="year-date"/>
-              <text variable="volume" prefix="Т. "/>
-              <text variable="issue" prefix="№ "/>
-            </group>
-            <text variable="page" prefix="С. "/>
-          </group>
-        </else>
       </choose>
+          <choose>
+            <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
+              <group delimiter=". ">
+                <group delimiter=" ">
+                  <text macro="title"/>
+                  <choose>
+                  <if variable="editor">
+                    <text macro="authors_before_editor" prefix="/ "/>
+                  </if>
+                  </choose>
+                  <text macro="editor"/>
+                </group>
+                <text macro="publisher"/>
+                <choose>
+                  <if variable="note">
+                    <text variable="page" suffix=" p"/>
+                  </if>
+                  <else>
+                    <text variable="page" suffix=" с"/>
+                  </else>
+                </choose>
+              </group>
+            </if>
+            <else-if type="chapter paper-conference" match="any">
+              <group prefix=" " delimiter=". ">
+                <group delimiter=" ">
+                  <text macro="title"/>
+                  <text variable="container-title" prefix="// "/>
+                  <text variable="collection-title" prefix=" " suffix="."/>
+                  <text macro="editor"/>
+                </group>
+                <text macro="publisher"/>
+              </group>
+            </else-if>
+            <else-if type="webpage">
+              <text macro="title" prefix=" "/>
+              <text prefix=" " macro="access"/>
+            </else-if>
+            <else-if type="article-journal article-magazine article-newspaper broadcast interview manuscript map patent personal_communication song speech thesis webpage" match="any">
+              <text macro="title" prefix=" "/>
+              <group delimiter=". " prefix=" " suffix=".">
+                <group prefix="// " delimiter=". ">
+                  <text variable="container-title" form="short"/>
+                  <text macro="year-date"/>
+                  <choose>
+                    <if variable="note">
+                      <text variable="volume" prefix="Vol. "/>
+                      <text variable="issue" prefix="Iss. "/>
+                    </if>
+                    <else>
+                      <text variable="volume" prefix="Т. "/>
+                      <text variable="issue" prefix="№ "/>
+                    </else>
+                  </choose>
+                </group>
+                <choose>
+                  <if variable="note">
+                    <text variable="page" prefix="P. "/>
+                  </if>
+                  <else>
+                    <text variable="page" prefix="С. "/>
+                  </else>
+                </choose>
+              </group>
+            </else-if>
+            <else>
+              <text macro="title" prefix=" "/>
+              <group delimiter=". " prefix=" " suffix=".">
+                <group prefix="// " delimiter=". ">
+                  <text variable="container-title" form="short"/>
+                  <text macro="year-date"/>
+                  <text term="volume"/>
+                  <text variable="volume" prefix=" "/>
+                  <text variable="issue" prefix="№ "/>
+                </group>
+                  <text variable="page" prefix="С. "/>
+                </group>
+            </else>
+          </choose>
     </layout>
   </bibliography>
 </style>

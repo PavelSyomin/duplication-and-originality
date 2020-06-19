@@ -28,6 +28,7 @@ output:
 bibliography: rcats_references.bib
 csl: antinomii.csl
 notes-after-punctuation: false
+reference-section-title: "Библиографический список"
 ---
 
 ```{r setup, include=FALSE}
