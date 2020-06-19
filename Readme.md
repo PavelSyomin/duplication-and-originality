@@ -47,11 +47,15 @@ the results of an assessment made by three co-authors. {suffix} stands for the n
 
 * **Table_of_tasks_of_federal_categories.ods** — a short version of table of tasks of federal categories (“short” means that one cell may include multiple values), which is loaded in the *Article.Rmd* and displayed as a part of “Materials and Methods”;
 
-* **jrp.csl** — a citation style file for Journal of Russian Law (a modified version of GOST R 7.0.5-2008 CSL);
+* **antinomii.csl** — a citation style file for Antinomii (a modified version of GOST R 7.0.5-2008 CSL);
 
 * **rcats_references.bib** — bibliography in BibTeX;
 
-* **reference-styles.odt** — an ODT with reference styles to knit the article.
+* **reference-styles.odt** — an ODT with reference styles to knit the article;
+
+* **references.odt** — an ODT with “References” list (a modified version of bibliography); unfortunately, we don't know how to automatically generate both Bibliography (in Russian) and References (in English), so References is made manually and then manually inserted to the and of the article;
+
+* **template.opendocument** — a Pandoc template file used in article knitting. It is necessary to make a use of udk_code, abstract and keywords variables, as well as to change the default place of the title and the list of authors.
 
 ### The knitting process
 
@@ -117,11 +121,15 @@ When a user opens *Article.Rmd* and clicks “Knit” button, the *Compare_cats.
 
 * **Table_of_tasks_of_federal_categories.ods** — таблица задач федеральных категорий в кратком формате (в одной ячейке может быть несколько значений), которая загружается в *Article.Rmd* и отображается в разделе «Материалы и методы»;
 
-* **jrp.csl** — файл со стилем цитирования для «Журнала российского права» (модифицированный стиль для ГОСТ Р 7.0.5-2008);
+* **antinomii.csl** — файл со стилем цитирования для «Антиномий» (модифицированный стиль для ГОСТ Р 7.0.5-2008);
 
 * **rcats_references.bib** — библиография в BibTeX;
 
-* **reference-styles.odt** — ODT-файл с эталонными стилями. Нужен, чтобы результат сборки *Article.Rmd* выглядел не слишком ужасно (хотя таблицам это все равно не помогло).
+* **reference-styles.odt** — ODT-файл с эталонными стилями. Нужен, чтобы результат сборки *Article.Rmd* выглядел не слишком ужасно (хотя таблицам это все равно не помогло);
+
+* **references.odt** — ODT-файл со списком References. К сожалению, у нас не получилось собрать автоматически два списка — библиографию и References — поэтому мы сделали References вручную и потом вставили в итоговый файл;
+
+* **template.opendocument** — шаблон Pandoc, который используется для сборки статьи. Он нужен, чтобы использовать переменные udc_code, abstract и keywords, а также поменять местоположение заголовка и списка авторов по сравнению с вариантом по умолчанию.
 
 ### В какой последовательности идёт сборка статьи
 
