@@ -191,6 +191,8 @@ kable(final_table,
 
 ```{r plot, fig.width = 6.8}
 ff_rf_indices_plot
+# We have to save the plot to send it with an article
+ggsave("Plot.png", ff_rf_indices_plot)
 ```
 
 ## Рисунок 1. Распределения индексов сходства федеральных категорий с федеральными и федеральных категорий с региональными
