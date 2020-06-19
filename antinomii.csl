@@ -41,7 +41,7 @@
   </macro>
   <macro name="author_short">
     <names variable="author">
-      <name form="short" name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always"/>
+      <name form="short" name-as-sort-order="all" sort-separator=" " delimiter=", " delimiter-precedes-last="always" delimiter-precedes-et-al="never"/>
       <substitute>
         <text variable="title"/>
       </substitute>
@@ -94,11 +94,7 @@
       <key variable="issued"/>
     </sort>
     <layout prefix="[" suffix="]" delimiter="; ">
-      <choose>
-        <if variable="editor" match="none">
-          <text macro="author_short" suffix=" "/>
-        </if>
-      </choose>
+      <text macro="author_short" suffix=" "/>
       <text macro="year-date"/>
     </layout>
   </citation>
