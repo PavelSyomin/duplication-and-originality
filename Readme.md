@@ -4,7 +4,7 @@
 
 By Pavel Syomin (Habr.com), Julia Kiel and Valeriya Sinitsina (Ural State Law University).
 
-The article is an unpublished draft.
+The article is an accepted manuscript.
 
 The article is written using R and RMarkdown. The R source code is split into several files. Some of them are intended to be run only once, because they create templates, while the others process the data and provide for an “assembly line” which builds the article. **Article.Rmd** is the main file. It loads all necessary dependencies, so you can knit it and get the full article with a single click.
 
@@ -78,7 +78,7 @@ When a user opens *Article.Rmd* and clicks “Knit” button, the *Compare_cats.
 
 Авторы: Павел Сёмин (Habr.com), Юлия Киль и Валерия Синицына (Уральский государственный юридический университет).
 
-Статья — неопубликованный черновик.
+Статья принята к печати в журнале «Антиномии».
 
 Статья написана с помощью R и RMarkdown. Исходный код на R разделён на несколько файлов. Некоторые из этих файлов предназначены для создания шаблонов, поэтому они запускались только один раз. Другие файлы обрабатывают данные и образуют конвейер, который собирает статью. Основной файл — это **Article.Rmd**: он загружает все необходимые зависимости, поэтому достаточно просто открыть этот файл в RStudio и нажать “Knit”, чтобы собрать статью.
 
